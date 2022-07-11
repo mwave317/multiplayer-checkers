@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "multiplayer-chess"
+    }
+  },
+  "defaultProject": "multiplayer-chess",
+  "cli": {
+    "analytics": false
+  }
 }
