@@ -1,0 +1,35 @@
+.checkerboard-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.checkerboard-container {
+    border: 5px solid gray;
+
+}
+
+
+
+.checkerboard-row {
+    display: flex;
+}
+
+.square {
+    height: 30px;
+    width: 30px;
+}
+
+.checkerboard-square-white {
+    background-color: #ffffff;
+}
+
+.checkerboard-square-gray {
+    background-color: #000000;
+}
+
+.checkerboard-piece {
+    height: 26px;
+    margin-left: 2px;
+    margin-top: 2px;
+}

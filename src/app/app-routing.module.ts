@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CheckerboardComponent } from './checkerboard/checkerboard.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: CheckerboardComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
