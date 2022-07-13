@@ -40,12 +40,13 @@ export class CheckerboardComponent implements OnInit {
     this.disabled = true;
   }
   stopGame() {
-    for (let i = 0; i <= 24; i++) {
-      let elem = document.querySelector('img');
-      elem.remove();
-      this.disabled = false;
+    let elem = document.querySelectorAll('img');
+    for (let i = 0; i < elem.length; i++) {
+      elem[i].remove();
     }
-
+    this.disabled = false;
   }
+
 }
+
 
