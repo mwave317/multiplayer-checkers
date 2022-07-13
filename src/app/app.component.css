@@ -1,0 +1,39 @@
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.layout-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+button {
+    font-family: 'Cabin';
+    font-size: 20px;
+    background-color: blue;
+    color: white;
+    height: 40px;
+    width: 120px;
+
+
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .layout-wrapper {
+        flex-direction: row;
+    }
+
+    .layout-buttons {
+        flex-direction: column;
+        margin-left: 100px;
+        align-items: center;
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+}

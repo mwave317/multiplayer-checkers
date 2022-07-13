@@ -1,14 +1,12 @@
+<app-header></app-header>
 <!-- <router-outlet></router-outlet> -->
-<div style="display: flex; flex-direction: column; justify-content: center;">
+<div class="layout-wrapper">
     <div>
-        <app-header></app-header>
         <app-checkerboard></app-checkerboard>
     </div>
-    <div style="display: flex; justify-content: center; margin-top: 50px;">
+    <div class="layout-buttons">
         <button type="button" (click)="child.addPieces()" [disabled]="child.disabled">New
             Game</button>
-    </div>
-    <div style="display: flex; justify-content: center; margin-top: 10px;">
         <button type="button" (click)="child.stopGame()">End Game</button>
     </div>
 </div>
