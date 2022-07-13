@@ -30,7 +30,10 @@ export class CheckerboardComponent implements OnInit {
       elem.style.height = '26px';
       elem.style.margin = '1px 0px 0px 2px';
       element.appendChild(elem);
-
+      if (window.innerWidth > 768) {
+        elem.style.height = '70px';
+        elem.style.margin = '4px 0px 0px 6px';
+      }
     }
     this.disabled = true;
   }

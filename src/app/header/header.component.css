@@ -30,3 +30,7 @@
 .header-player-two {
     background-color: green;
 }
+
+.header-active {
+    background: linear-gradient(grey, red);
+}

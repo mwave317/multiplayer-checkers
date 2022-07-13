@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  player1Active = false;
   player1score: number = 0;
   player2score: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
