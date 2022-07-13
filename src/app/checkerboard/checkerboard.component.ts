@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-checkerboard',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./checkerboard.component.css']
 })
 export class CheckerboardComponent implements OnInit {
-
-  checkers = [
+  disabled: boolean = false;
+  checkers: Array<string> = [
     '#cell-1-2', '#cell-1-4', '#cell-1-6', '#cell-1-8',
     '#cell-2-1', '#cell-2-3', '#cell-2-5', '#cell-2-7',
     '#cell-3-2', '#cell-3-4', '#cell-3-6', '#cell-3-8',
@@ -18,7 +19,6 @@ export class CheckerboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.addPieces();
   }
 
 
@@ -28,9 +28,10 @@ export class CheckerboardComponent implements OnInit {
       let elem = document.createElement('img');
       elem.src = '../../assets/images/red-checker-piece.svg';
       elem.style.height = '26px';
-      elem.style.margin = '1px 0px 0px 3px';
+      elem.style.margin = '1px 0px 0px 2px';
       element.appendChild(elem);
-    }
 
+    }
+    this.disabled = true;
   }
 }

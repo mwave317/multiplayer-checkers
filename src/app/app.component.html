@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<div style="display: flex; flex-direction: column; justify-content: center;">
+    <div>
+        <app-header></app-header>
+        <app-checkerboard></app-checkerboard>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 50px;">
+        <button type="button" (click)="child.addPieces()" [disabled]="child.disabled">New
+            Game</button>
+    </div>
+</div>
