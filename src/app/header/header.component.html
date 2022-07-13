@@ -6,7 +6,8 @@
             <p class="header-player-games">GAMES WON:</p>
             <p class="header-player-score">{{ player1score }}</p>
         </div>
-        <div class="header-player header-player-two">
+        <div
+            [ngClass]="player2Active ? 'header-player header-player-two header-active' : 'header-player header-player-two'">
             <p>PLAYER 2</p>
             <p class="header-player-games">GAMES WON:</p>
             <p class="header-player-score">{{ player2score }}</p>

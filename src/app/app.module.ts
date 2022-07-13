@@ -7,12 +7,14 @@ import { CheckerboardComponent } from './checkerboard/checkerboard.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDirective } from './drag.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckerboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    DragDirective
   ],
   imports: [
     BrowserModule,
