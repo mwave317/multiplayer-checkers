@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-checkerboard',
@@ -37,4 +39,13 @@ export class CheckerboardComponent implements OnInit {
     }
     this.disabled = true;
   }
+  stopGame() {
+    for (let i = 0; i <= 24; i++) {
+      let elem = document.querySelector('img');
+      elem.remove();
+      this.disabled = false;
+    }
+
+  }
 }
+
