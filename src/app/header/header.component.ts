@@ -21,9 +21,11 @@ export class HeaderComponent implements OnInit {
   showActivePlayer() {
     this.checkerboardService.sendActivePlayer().subscribe(data => {
       if (data == 'player1') {
-        this.player1Active = !this.player1Active
+        this.player1Active = true;
+        this.player2Active = false;
       } else {
-        this.player2Active = !this.player2Active
+        this.player1Active = false;
+        this.player2Active = true;
       }
     })
     // setTimeout(() => { this.endGame() }, 3000);

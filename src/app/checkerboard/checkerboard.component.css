@@ -1,8 +1,8 @@
 .checkerboard-wrapper {
     display: grid !important;
-    grid-template-rows: 80px, 80px, 80px, 80px, 80px, 80px, 80px, 80px;
-    grid-template-columns: repeat(8, 80px);
-    /* margin-top: 150px; */
+    grid-template-rows: 30px 30px 30px 30px 30px 30px 30px 30px;
+    grid-template-columns: repeat(8, 30px);
+    justify-content: center;
 }
 
 .checkerboard-container {
@@ -32,13 +32,39 @@
     border: 1px solid gray;
 }
 
+.images {
+    margin: 1px 0px 0px 2px;
+}
+
+.checkerImg {
+    height: 26px;
+    margin: 0px
+}
+
 .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 @media screen and (min-width: 768px) {
+
+    .checkerboard-wrapper {
+        display: grid !important;
+        grid-template-rows: 80px 80px 80px 80px 80px 80px 80px 80px;
+        grid-template-columns: repeat(8, 80px);
+        justify-content: center;
+    }
+
     .square {
         height: 80px;
         width: 80px;
+    }
+
+    .images {
+        margin: 4px 0px 0px 6px;
+    }
+
+    .checkerImg {
+        height: 70px;
+        margin: 0px
     }
 }

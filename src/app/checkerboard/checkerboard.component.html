@@ -1,9 +1,10 @@
 <div class="checkerboard-wrapper" #contenedor cdkDropListGroup>
     <div *ngFor="let item of items;let i=index">
-        <div class={{item.class}} [cdkDropListData]="{item: img,index:i}" (cdkDropListDropped)="drop($event)">
-            <div *ngIf="newGame" style="margin: 4px 0px 0px 6px" cdkDrag>
+        <div id={{item.id}} class={{item.class}} [cdkDropListData]="{item: img,index:i}"
+            (cdkDropListDropped)="drop($event)">
+            <div *ngIf="newGame" class="images" (mouseup)="moveChecker(item.id)" cdkDrag>
                 <div *cdkDragPlaceholder></div>
-                <img *ngIf=item.img style="height: 70px; margin:0px" src={{item.img}} />
+                <img *ngIf=item.img class="checkerImg" src={{item.img}} />
             </div>
         </div>
     </div>
