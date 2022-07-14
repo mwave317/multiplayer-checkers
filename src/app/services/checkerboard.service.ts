@@ -13,15 +13,10 @@ export class CheckerboardService {
 
 
   whichPlayerIsActive(player) {
-    console.log('This is coming from the service: ', 'player', player);
     if (player === 'player1') {
       this.player1Active.next('player1');
-      console.log('This is coming from the service: ', 'player1Active', this.player1Active);
-      // return this.player1Active.asObservable();
     } else {
       this.player2Active.next('player2');
-      console.log('This is coming from the service: ', 'player2Active', this.player2Active);
-      // return this.player2Active;
     }
   }
 
@@ -38,7 +33,6 @@ export class CheckerboardService {
   }
 
   sendGameEnded(): Observable<boolean> {
-    console.log('This is coming from the service', this.endGameNow);
     return this.endGameNow.asObservable();
   }
 }
