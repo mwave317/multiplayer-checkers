@@ -2,9 +2,10 @@
     <div *ngFor="let item of items;let i=index">
         <div id={{item.id}} class={{item.class}} [cdkDropListData]="{item: img,index:i}"
             (cdkDropListDropped)="drop($event)">
-            <div *ngIf="newGame" class="images" (mouseup)="moveChecker(item.id)" cdkDrag>
+            <div *ngIf="newGame" class="images" (pointerdown)="moveChecker($event)" (pointerup)="moveChecker1($event)"
+                (setPointerCapture)="moveCheckers3($event)" cdkDrag>
                 <div *cdkDragPlaceholder></div>
-                <img *ngIf=item.img class="checkerImg" src={{item.img}} />
+                <img *ngIf="item.img" id=checker{{i}} class="checkerImg" src={{item.img}} />
             </div>
         </div>
     </div>

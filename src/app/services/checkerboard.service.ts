@@ -15,7 +15,8 @@ export class CheckerboardService {
   whichPlayerIsActive(player) {
     if (player === 'player1') {
       this.player1Active.next('player1');
-    } else {
+    }
+    else {
       this.player2Active.next('player2');
     }
   }

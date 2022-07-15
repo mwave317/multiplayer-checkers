@@ -5,8 +5,15 @@
         <app-checkerboard></app-checkerboard>
     </div>
     <div class="layout-buttons">
-        <button type="button" (click)="child.addPieces()" [disabled]="child.disabled">New
+        <button type="button" [ngClass]="!child.disabled ? 'button' : 'button disabled'" (click)="child.addPieces()"
+            [disabled]="child.disabled">New
             Game</button>
-        <button type="button" (click)="child.stopGame()">End Game</button>
+        <button type="button" class="button" (click)="child.stopGame()">End Game</button>
+
+        <div>
+            Player1: {{player1Active}}
+            Player2: {{player2Active}}
+
+        </div>
     </div>
 </div>

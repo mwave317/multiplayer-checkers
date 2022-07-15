@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CheckerboardService } from '../services/checkerboard.service';
 
 @Component({
@@ -7,15 +7,16 @@ import { CheckerboardService } from '../services/checkerboard.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  player1Active = false;
-  player2Active = false;
-
+  @Input() player1Active = false;
+  @Input() player2Active = false;
+  @Input() endGame: any;
   player1score: number = 0;
   player2score: number = 0;
   constructor(private checkerboardService: CheckerboardService) { }
 
   ngOnInit(): void {
     this.showActivePlayer();
+
   }
 
   showActivePlayer() {
@@ -31,9 +32,9 @@ export class HeaderComponent implements OnInit {
     // setTimeout(() => { this.endGame() }, 3000);
   }
 
-  endGame() {
+  onEndGame(value) {
     this.checkerboardService.sendGameEnded().subscribe(data => {
-      if (data) {
+      if (value) {
         this.player1Active = false;
         this.player2Active = false;
       }
