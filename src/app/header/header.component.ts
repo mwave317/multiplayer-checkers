@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.showActivePlayer();
-
+    setTimeout(() => { this.onEndGame }, 3000);
   }
 
   showActivePlayer() {
@@ -29,12 +29,12 @@ export class HeaderComponent implements OnInit {
         this.player2Active = true;
       }
     })
-    // setTimeout(() => { this.endGame() }, 3000);
+    setTimeout(() => { this.onEndGame() }, 3000);
   }
 
-  onEndGame(value) {
+  onEndGame() {
     this.checkerboardService.sendGameEnded().subscribe(data => {
-      if (value) {
+      if (data) {
         this.player1Active = false;
         this.player2Active = false;
       }

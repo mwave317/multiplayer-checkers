@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CheckerboardService } from '../services/checkerboard.service';
+import { HideDirective } from '../directives/hide.directive';
 
 @Component({
   selector: 'app-checkerboard',
@@ -8,99 +9,93 @@ import { CheckerboardService } from '../services/checkerboard.service';
   styleUrls: ['./checkerboard.component.css']
 })
 export class CheckerboardComponent implements OnInit {
+
   disabled: boolean = false;
   newGame: boolean = false;
   previousIndex;
+  imgId: string;
+  @ViewChildren(HideDirective) hideDirectives!: QueryList<HideDirective>;
   @Input() player1Active: boolean;
   @Input() player2Active: boolean;
   xPointerDownPosition: number;
   yPointerDownPosition: number;
   xPointerUpPosition: number;
   yPointerUpPosition: number;
-  checker0: boolean = true;
-  checker1: boolean = false;
-  checker2: boolean = true;
-  checker3: boolean = true;
-  checker4: boolean = true;
-  checker5: boolean = true;
-
   items: Array<any> = [
-    // ../../assets/images/${this.checkers[i].color}-checker-piece.svg
-    // ../../assets/images/gray-checker-piece.svg
-    { draggable: false, addClass: 'checker1', id: 'cell-1-1', class: 'square checkerboard-square-red', img: '' },
-    { draggable: true, addClass: 'checker2', id: 'cell-1-2', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { addClass: 'checker3', id: 'cell-1-3', class: 'square checkerboard-square-red', img: '' },
-    { addClass: 'checker4', id: 'cell-1-4', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { addClass: 'checker5', id: 'cell-1-5', class: 'square checkerboard-square-red', img: '' },
-    { addClass: 'checker6', id: 'cell-1-6', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { addClass: 'checker7', id: 'cell-1-7', class: 'square checkerboard-square-red', img: '' },
-    { addClass: 'checker8', id: 'cell-1-8', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
 
-    { id: 'cell-2-1', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-2-1', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-2-3', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-2-4', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-2-5', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-2-6', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-2-7', class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-2-8', class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
 
-    { id: 'cell-3-1', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-3-2', class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-3-3', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-3-4', class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-3-5', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-3-6', class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
-    { id: 'cell-3-7', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-3-8', class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/beige-checker-piece.svg' },
 
-    { id: 'cell-4-1', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-4-2', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-4-3', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-4-4', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-4-5', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-4-6', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-4-7', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-4-8', class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
 
-    { id: 'cell-5-1', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-5-2', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-5-3', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-5-4', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-5-5', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-5-6', class: 'square checkerboard-square-black', img: '' },
-    { id: 'cell-5-7', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-5-8', class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '' },
 
-    { id: 'cell-6-1', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-6-2', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-6-3', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-6-4', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-6-5', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-6-6', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-6-7', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-6-8', class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
 
-    { id: 'cell-7-1', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-7-2', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-7-3', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-7-4', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-7-5', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-7-6', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-7-7', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-7-8', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
 
-    { id: 'cell-8-1', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-8-2', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-8-3', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-8-4', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-8-5', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-8-6', class: 'square checkerboard-square-red', img: '' },
-    { id: 'cell-8-7', class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
-    { id: 'cell-8-8', class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
+    { class: 'square checkerboard-square-black', img: '../../assets/images/gray-checker-piece.svg' },
+    { class: 'square checkerboard-square-red', img: '' },
   ];
 
-  constructor(private checkerBoardService: CheckerboardService) { }
+  constructor(private checkerBoardService: CheckerboardService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
   }
@@ -122,23 +117,30 @@ export class CheckerboardComponent implements OnInit {
     this.checkerBoardService.whichPlayerIsActive(player);
   }
 
-  moveChecker(event) {
+  moveChecker(event, index) {
     console.log('Pointerdown Event: ', event);
     this.xPointerDownPosition = event.clientX;
     this.yPointerDownPosition = event.clientY;
     console.log('This is the value of xPointerdownPosition', this.xPointerDownPosition);
     console.log('This is the value of yPointerdownPosition', this.yPointerDownPosition);
     console.log(event.path[2].cdkDropListData.index);
-    // this.checker1 = false;
+    // this.hideChecker(index);
   }
 
   moveChecker1(event) {
-    this.checker1 = false;
+    console.log('is this the locationo it is dropped on', event.target.getBoundingClientRect());
+    // this.checker1 = false;
+
     let rect = event.target.getBoundingClientRect();
     let x = event.clientX - rect.left;
     let y = event.clientY - rect.top;
+
+    let id = event.path[0].attributes[1].value;
     this.xPointerUpPosition = event.clientX;
     this.yPointerUpPosition = event.clientY;
+    // this.checkerId = event.path[2].id;
+    this.imgId = event.path[0].attributes[2].value;
+    console.log('imgId ', this.imgId);
     console.log(event.path[2].cdkDropListData.index);
     console.log('This is the value of xPointerupPosition', this.xPointerUpPosition);
     console.log('This is the value of yPointerupPosition', this.yPointerUpPosition);
@@ -146,18 +148,31 @@ export class CheckerboardComponent implements OnInit {
     if (this.xPointerDownPosition < this.xPointerUpPosition && (this.xPointerUpPosition - this.xPointerDownPosition) < 84) {
       console.log('You should see this calculation: ', this.xPointerUpPosition - this.xPointerDownPosition);
       console.log('Moved one space');
-      console.log("Event Path", event.path[2].id);
+
     }
     else if (this.xPointerDownPosition < this.xPointerUpPosition && (this.xPointerUpPosition - this.xPointerDownPosition) > 84 && (this.xPointerUpPosition - this.xPointerDownPosition) > 157) {
       console.log('You should see this calculation: ', this.xPointerUpPosition - this.xPointerDownPosition);
       console.log('Moved two spaces');
-      console.log('This is the value of checker1', this.checker1)
+      // console.log('This is the value of checker1', this.checker1)
     }
+    // this.elementRef.nativeElement.style.display = "none";
+    // this.renderer.setStyle(this.delete.nativeElement, 'display', 'none');
+    // document.getElementById(this.imgId).style.display = "none";
+  }
+
+  testing(id) {
+    console.log('id', id);
   }
 
   moveCheckers3(event) {
     console.log(event);
   }
+
+  hideChecker(id: number) {
+    console.log('id', id);
+    this.hideDirectives.find((p) => p.id === id.toString()).shouldShow = 'none';
+  }
+
   stopGame() {
     this.newGame = false;
     this.disabled = false;
@@ -167,5 +182,3 @@ export class CheckerboardComponent implements OnInit {
   }
 
 }
-
-
