@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class CheckerboardService {
   player1Active = new Subject<string>();
   player2Active = new Subject<string>();
-  endGameNow = new Subject<boolean>();
+  endGameNow = new Subject<string>();
 
   constructor() { }
 
@@ -29,12 +29,12 @@ export class CheckerboardService {
     }
   }
 
-  hasGameEnded(status) {
-    this.endGameNow.next(status);
+  hasGameEnded(): Observable<string> {
+    return this.endGameNow.asObservable();
   }
 
-  sendGameEnded(): Observable<boolean> {
-    return this.endGameNow.asObservable();
+  sendGameEnded(status) {
+    this.endGameNow.next(status);
   }
 }
 

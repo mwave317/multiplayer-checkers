@@ -33,8 +33,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onEndGame() {
-    this.checkerboardService.sendGameEnded().subscribe(data => {
-      if (data) {
+    this.checkerboardService.hasGameEnded().subscribe(data => {
+      if (data === 'gameEnded') {
         this.player1Active = false;
         this.player2Active = false;
       }

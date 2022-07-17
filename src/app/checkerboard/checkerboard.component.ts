@@ -113,10 +113,12 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log(event.container.data[event.currentIndex]['id']);
     if (event.previousContainer === event.container) {
       moveItemInArray(this.items, event.previousIndex, event.currentIndex);
       this.previousIndex = this.items[event.previousIndex];
       this.currentIndex = this.items[event.currentIndex];
+      console.log(event.container.data[event.currentIndex]['id']);
       // console.log('this.currentIndex', event.currentIndex);
       // console.log('this.previousIndex', event.previousIndex);
     } else {
@@ -124,6 +126,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      console.log(event.container.data[event.currentIndex]['id']);
       // console.log('this.currentIndex', event.currentIndex);
       // console.log('this.previousIndex', event.previousIndex);
     }
@@ -192,8 +195,9 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     console.log('Event from the pointer capture', event);
   }
 
-  onDragEnded(event: CdkDragEnd): void {
-    console.log('isBelowLg', this.isBelowLg);
+  onDragEnded(event: CdkDragEnd, id): void {
+    console.log('This is the id of thee item being dragged', id);
+    console.log(event.source.getFreeDragPosition());
     let xPointerReleaseMinusGrab = (this.xPointerReleasePosition - this.xPointerGrabPosition);
     let xPointerGrabMinusRelease = (this.xPointerGrabPosition - this.xPointerReleasePosition);
     let yPointerReleaseMinusGrab = (this.yPointerReleasePosition - this.yPointerGrabPosition);
@@ -238,6 +242,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
 
     this.player1Active = false;
     this.player2Active = false;
+    this.checkerBoardService.sendGameEnded('gameEnded');
   }
 
 }
