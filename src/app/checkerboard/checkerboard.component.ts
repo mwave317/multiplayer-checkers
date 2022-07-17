@@ -152,28 +152,28 @@ export class CheckerboardComponent implements OnInit {
     // console.log('is this the locationo it is dropped on', event.target.getBoundingClientRect());
 
 
-    let rect = event.target.getBoundingClientRect();
-    let x = event.clientX - rect.left;
-    let y = event.clientY - rect.top;
-    let id = event.path[0].attributes[1].value;
+    // let rect = event.target.getBoundingClientRect();
+    // let x = event.clientX - rect.left;
+    // let y = event.clientY - rect.top;
+    // let id = event.path[0].attributes[1].value;
     this.xPointerReleasePosition = event.clientX;
     this.yPointerReleasePosition = event.clientY;
     // this.checkerId = event.path[2].id;
     // this.imgId = event.path[0].attributes[2].value;
     // console.log('imgId ', this.imgId);
-    console.log(event.path[2].cdkDropListData.index);
+    // console.log(event.path[2].cdkDropListData.index);
     // console.log('This is the value of xPointerReleasePosition', this.xPointerReleasePosition);
     // console.log('This is the value of yPointerReleasePosition', this.yPointerReleasePosition);
-    console.log(event);
-    if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) < 84) {
-      console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
-      console.log('Moved one space');
+    // console.log(event);
+    // if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) < 84) {
+    //   console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
+    //   console.log('Moved one space');
 
-    }
-    else if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 84 && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 157) {
-      console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
-      console.log('Moved two spaces');
-    }
+    // }
+    // else if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 84 && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 157) {
+    //   console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
+    //   console.log('Moved two spaces');
+    // }
 
   }
 
@@ -204,9 +204,13 @@ export class CheckerboardComponent implements OnInit {
 
 
 
-    if (x < 6 || y < 6 && x < 79 || y < 6 || x < 6 && y < 79) {
+    if (x === undefined || y === undefined || x < 79 || y < 6 || x < 6 && y < 79) {
       event.source._dragRef.reset();
-    } else {
+    } else if (x > 174 && y > 174) {
+      event.source._dragRef.reset();
+    }
+
+    else {
       return;
     }
   }
