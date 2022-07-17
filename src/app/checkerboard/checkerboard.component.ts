@@ -1,15 +1,19 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { CdkDragDrop, CdkDragEnd, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { CheckerboardService } from '../services/checkerboard.service';
+import { BreakpointState } from '@angular/cdk/layout';
 import { HideDirective } from '../directives/hide.directive';
+
+import { CheckerboardService } from '../services/checkerboard.service';
+import { ScreenService } from '../services/screen.service';
 
 @Component({
   selector: 'app-checkerboard',
   templateUrl: './checkerboard.component.html',
   styleUrls: ['./checkerboard.component.css']
 })
-export class CheckerboardComponent implements OnInit {
+export class CheckerboardComponent implements OnInit, AfterViewInit {
 
+  isBelowLg: boolean = false;
   disabled: boolean = false;
   newGame: boolean = false;
   currentIndex;
@@ -96,9 +100,16 @@ export class CheckerboardComponent implements OnInit {
     { class: 'square checkerboard-square-red', img: '' },
   ];
 
-  constructor(private checkerBoardService: CheckerboardService, private renderer: Renderer2) { }
+  constructor(private checkerBoardService: CheckerboardService, private screenService: ScreenService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.screenService.isBelowLg().subscribe((isBelowLg: BreakpointState) => {
+      this.isBelowLg = isBelowLg.matches;
+    });
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -182,6 +193,7 @@ export class CheckerboardComponent implements OnInit {
   }
 
   onDragEnded(event: CdkDragEnd): void {
+    console.log('isBelowLg', this.isBelowLg);
     let xPointerReleaseMinusGrab = (this.xPointerReleasePosition - this.xPointerGrabPosition);
     let xPointerGrabMinusRelease = (this.xPointerGrabPosition - this.xPointerReleasePosition);
     let yPointerReleaseMinusGrab = (this.yPointerReleasePosition - this.yPointerGrabPosition);
@@ -202,16 +214,16 @@ export class CheckerboardComponent implements OnInit {
     console.log('x', x);
     console.log('y', y);
 
+    if (this.isBelowLg) {
+      if (x === undefined || y === undefined || y > 70 && x > 70 || x < 10 && y < 212 || x < 212 && y < 10) {
+        event.source._dragRef.reset();
+      }
+    } else {
 
+      if (x === undefined || y === undefined || x < 6 || y < 6 || y < 40 && x < 600 || x < 40 && y < 600 || x > 201 && y > 201) {
+        event.source._dragRef.reset();
+      }
 
-    if (x === undefined || y === undefined || y < 40 && x < 600 || x < 40 && y < 600) {
-      event.source._dragRef.reset();
-    } else if (x > 201 && y > 201) {
-      event.source._dragRef.reset();
-    }
-
-    else {
-      return;
     }
   }
 
