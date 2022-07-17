@@ -204,9 +204,9 @@ export class CheckerboardComponent implements OnInit {
 
 
 
-    if (x === undefined || y === undefined || x < 79 || y < 6 || x < 6 && y < 79) {
+    if (x === undefined || y === undefined || y < 40 && x < 600 || x < 40 && y < 600) {
       event.source._dragRef.reset();
-    } else if (x > 174 && y > 174) {
+    } else if (x > 201 && y > 201) {
       event.source._dragRef.reset();
     }
 
