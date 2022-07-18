@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
     //     this.player2Active = true;
     //   }
     // })
-    setTimeout(() => { this.onEndGame() }, 3000);
   }
 
   onEndGame() {
