@@ -29,21 +29,6 @@ export class HeaderComponent implements OnInit {
 
   onEndGame() {
     console.log('I am clicked!');
-
-    // this.showActivePlayer();
-    // if (status === 'gameEnded') {
-    // this.player1Active = false;
-    // this.player2Active = false;
-    // }
-    // this.sharedService.hasGameEnded().subscribe(data => {
-    //   console.log('data', data);
-    //   if (data === 'none') {
-    //     this.player1Active = false;
-    //     this.player2Active = false;
-    //   }
-    // })
-
-    // setTimeout(() => { console.log('this.player1Active', this.player1Active, 'this.player2Active', this.player2Active) }, 9000);
   }
 
 }
