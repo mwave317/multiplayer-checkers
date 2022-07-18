@@ -17,7 +17,7 @@ export class UserOptionsComponent implements OnInit {
   }
 
   onStartGame() {
-    this.disabled = true;
+    // this.disabled = true;
     this.player1Active = !this.player1Active;
     this.sharedService.player1Active.next(this.player1Active);
   }
@@ -29,5 +29,4 @@ export class UserOptionsComponent implements OnInit {
     this.sharedService.player1Active.next(this.player1Active);
     this.sharedService.player2Active.next(this.player1Active);
   }
-
 }
