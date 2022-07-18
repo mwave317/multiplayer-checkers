@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CheckerboardComponent } from './checkerboard/checkerboard.component';
+import { CheckerboardComponent } from './components/checkerboard/checkerboard.component';
 
 const routes: Routes = [
   {

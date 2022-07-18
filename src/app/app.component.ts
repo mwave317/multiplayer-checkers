@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { CheckerboardComponent } from './checkerboard/checkerboard.component';
+import { CheckerboardComponent } from './components/checkerboard/checkerboard.component';
 
 
 @Component({

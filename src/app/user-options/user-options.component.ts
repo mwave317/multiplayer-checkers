@@ -20,7 +20,9 @@ export class UserOptionsComponent implements OnInit {
     // this.disabled = true;
     this.player1Active = !this.player1Active;
     this.sharedService.player1Active.next(this.player1Active);
+    console.log('hello');
   }
+
 
   onStopGame() {
     this.disabled = false;

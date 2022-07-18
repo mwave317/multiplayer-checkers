@@ -142,13 +142,12 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.newGame = true;
     this.disabled = true;
     this.sharedService.player1Active.next(true);
-    // this.onActivePlayer('player1');
   }
 
   onActivePlayer(player) {
   }
 
-  grabChecker(event) {
+  grabChecker(event, index) {
     // console.log('Pointerdown Event: ', event);
     // console.log('event value: ', event.target.value);
     this.xPointerGrabPosition = event.clientX;
@@ -158,7 +157,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     // console.log(event.path[2].cdkDropListData.index);
     // console.log('asfdlkjas;', event.currentIndex);
     // console.log('asfdlkjas;', event.previousIndex);
-    // this.hideChecker(index);
+    this.hideChecker(index);
   }
 
   placeChecker(event) {
