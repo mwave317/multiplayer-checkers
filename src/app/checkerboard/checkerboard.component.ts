@@ -143,6 +143,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.newGame = true;
     this.disabled = true;
     this.onActivePlayer('player1');
+
   }
 
   onActivePlayer(player) {
