@@ -15,20 +15,19 @@ export class HeaderComponent implements OnInit {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.showActivePlayer();
-    setTimeout(() => { this.onEndGame }, 3000);
+    this.sharedService.player1Active.subscribe(data => { this.player1Active = data });
   }
 
   showActivePlayer() {
-    this.sharedService.sendActivePlayer().subscribe(data => {
-      if (data == 'player1') {
-        this.player1Active = true;
-        this.player2Active = false;
-      } else {
-        this.player1Active = false;
-        this.player2Active = true;
-      }
-    })
+    // this.sharedService.sendActivePlayer().subscribe(data => {
+    //   if (data == 'player1') {
+    //     this.player1Active = true;
+    //     this.player2Active = false;
+    //   } else {
+    //     this.player1Active = false;
+    //     this.player2Active = true;
+    //   }
+    // })
     setTimeout(() => { this.onEndGame() }, 3000);
   }
 
