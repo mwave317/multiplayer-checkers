@@ -1,15 +1,16 @@
 import { AfterViewInit, Component, OnInit, Input, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { CdkDragDrop, CdkDragEnd, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BreakpointState } from '@angular/cdk/layout';
-import { HideDirective } from '../directives/hide.directive';
+import { HideDirective } from '../../directives/hide.directive';
 
-import { SharedService } from './../services/shared.service';
-import { ScreenService } from '../services/screen.service';
+import { SharedService } from '../../services/shared.service';
+import { ScreenService } from '../../services/screen.service';
 
 @Component({
   selector: 'app-checkerboard',
   templateUrl: './checkerboard.component.html',
-  styleUrls: ['./checkerboard.component.css']
+  styleUrls: ['./checkerboard.component.css'],
+
 })
 export class CheckerboardComponent implements OnInit, AfterViewInit {
 
@@ -20,8 +21,6 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   previousIndex;
   imgId: string;
   @ViewChildren(HideDirective) hideDirectives!: QueryList<HideDirective>;
-  @Input() player1Active: boolean;
-  @Input() player2Active: boolean;
   xPointerGrabPosition: number;
   yPointerGrabPosition: number;
   xPointerReleasePosition: number;
@@ -100,7 +99,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     { class: 'square checkerboard-square-red', img: '' },
   ];
 
-  constructor(private sharedService: SharedService, private screenService: ScreenService, private renderer: Renderer2) { }
+  constructor(private sharedService: SharedService, private screenService: ScreenService) { }
 
   ngOnInit(): void {
   }
@@ -142,11 +141,11 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   addPieces() {
     this.newGame = true;
     this.disabled = true;
-    this.onActivePlayer('player1');
+    this.sharedService.player1Active.next(true);
+    // this.onActivePlayer('player1');
   }
 
   onActivePlayer(player) {
-
   }
 
   grabChecker(event) {
@@ -236,13 +235,6 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.hideDirectives.find((p) => p.id === id.toString()).shouldShow = 'none';
   }
 
-  stopGame() {
-    this.newGame = false;
-    this.disabled = false;
 
-    this.player1Active = false;
-    this.player2Active = false;
-    this.sharedService.sendGameEnded('gameEnded');
-  }
 
 }

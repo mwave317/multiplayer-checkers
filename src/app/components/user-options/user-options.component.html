@@ -1,0 +1,6 @@
+<div class="buttons-layout">
+    <button type="button" [ngClass]="!disabled ? 'button' : 'button disabled'" [disabled]="disabled"
+        (click)="onStartGame()">New
+        Game</button>
+    <button type="button" class="button" (click)="onStopGame()">End Game</button>
+</div>

@@ -1,0 +1,31 @@
+.buttons-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    font-family: 'Cabin';
+    font-size: 20px;
+    background-color: blue;
+    color: white;
+    height: 40px;
+    width: 120px;
+    margin-right: 10px;
+}
+
+.disabled {
+    background-color: #EBEBEB;
+    color: #A1A1A1;
+}
+
+@media screen and (min-width: 768px) {
+
+    .buttons-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+}

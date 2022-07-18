@@ -8,12 +8,15 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HideDirective } from './directives/hide.directive';
+import { UserOptionsComponent } from './components/user-options/user-options.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckerboardComponent,
     HeaderComponent,
+    UserOptionsComponent,
     HideDirective
   ],
   imports: [
@@ -22,7 +25,7 @@ import { HideDirective } from './directives/hide.directive';
     BrowserAnimationsModule,
     DragDropModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CheckerboardService } from '../services/checkerboard.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() endGame: any;
   player1score: number = 0;
   player2score: number = 0;
-  constructor(private checkerboardService: CheckerboardService) { }
+  constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.showActivePlayer();
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   showActivePlayer() {
-    this.checkerboardService.sendActivePlayer().subscribe(data => {
+    this.sharedService.sendActivePlayer().subscribe(data => {
       if (data == 'player1') {
         this.player1Active = true;
         this.player2Active = false;
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onEndGame() {
-    this.checkerboardService.hasGameEnded().subscribe(data => {
+    this.sharedService.hasGameEnded().subscribe(data => {
       if (data === 'gameEnded') {
         this.player1Active = false;
         this.player2Active = false;
