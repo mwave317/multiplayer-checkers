@@ -13,6 +13,7 @@ export class UserOptionsComponent implements OnInit {
   player1Active: boolean = true;
   player2Active: boolean = false;
   startGame: boolean = true;
+  endGame: boolean = false;
 
   constructor(private sharedService: SharedService) { }
 
@@ -34,5 +35,6 @@ export class UserOptionsComponent implements OnInit {
     this.player2Active = false;
     this.sharedService.player1Active.next(this.player1Active);
     this.sharedService.player2Active.next(this.player2Active);
+    this.sharedService.endGame.next(this.endGame);
   }
 }

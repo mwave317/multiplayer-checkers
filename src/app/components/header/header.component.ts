@@ -21,14 +21,4 @@ export class HeaderComponent implements OnInit {
     this.sharedService.player2Active.subscribe(data => this.player2Active = data);
 
   }
-
-  // showActivePlayer() {
-  // }
-
-
-
-  onEndGame() {
-    console.log('I am clicked!');
-  }
-
 }

@@ -8,6 +8,7 @@ export class SharedService {
   player1Active = new Subject<boolean>();
   player2Active = new Subject<boolean>();
   startGame = new Subject<boolean>();
+  endGame = new Subject<boolean>();
 
   constructor() { }
 
@@ -23,6 +24,10 @@ export class SharedService {
 
   sendStartGame(): Observable<boolean> {
     return this.startGame.asObservable();
+  }
+
+  sendEndGame(): Observable<boolean> {
+    return this.endGame.asObservable();
   }
 
   sendActivePlayer(): Observable<any> {
