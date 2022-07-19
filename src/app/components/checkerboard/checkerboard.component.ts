@@ -102,6 +102,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   constructor(private sharedService: SharedService, private screenService: ScreenService) { }
 
   ngOnInit(): void {
+    this.sharedService.sendStartGame().subscribe(data => { this.addPieces() })
   }
 
   ngAfterViewInit(): void {

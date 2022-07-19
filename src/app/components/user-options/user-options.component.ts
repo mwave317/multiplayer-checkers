@@ -12,8 +12,8 @@ export class UserOptionsComponent implements OnInit {
   disabled: boolean = false;
   player1Active: boolean = true;
   player2Active: boolean = false;
+  startGame: boolean = true;
 
-  @Output() startGame = new EventEmitter<boolean>(false);
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
@@ -23,11 +23,12 @@ export class UserOptionsComponent implements OnInit {
   onStartGame() {
     this.disabled = true;
     this.player1Active = true;
+    this.startGame = true;
     this.sharedService.player1Active.next(this.player1Active);
+    this.sharedService.startGame.next(this.startGame)
   }
 
   onStopGame() {
-    let player = 'none';
     this.disabled = false;
     this.player1Active = false;
     this.player2Active = false;

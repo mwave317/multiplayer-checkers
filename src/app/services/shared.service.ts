@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class SharedService {
   player1Active = new Subject<boolean>();
   player2Active = new Subject<boolean>();
-  endGameNow = new Subject<string>();
+  startGame = new Subject<boolean>();
 
   constructor() { }
 
@@ -21,6 +21,10 @@ export class SharedService {
   //   }
   // }
 
+  sendStartGame(): Observable<boolean> {
+    return this.startGame.asObservable();
+  }
+
   sendActivePlayer(): Observable<any> {
     return
     // if (this.player1Active) {
@@ -30,13 +34,13 @@ export class SharedService {
     // }
   }
 
-  hasGameEnded(): Observable<string> {
-    return this.endGameNow.asObservable();
-  }
+  // hasGameEnded(): Observable<string> {
+  //   return this.endGameNow.asObservable();
+  // }
 
-  sendGameEnded(status) {
-    this.endGameNow.next(status);
-  }
+  // sendGameEnded(status) {
+  //   this.endGameNow.next(status);
+  // }
 }
 
 
