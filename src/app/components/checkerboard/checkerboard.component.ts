@@ -159,7 +159,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     // console.log(event.path[2].cdkDropListData.index);
     // console.log('asfdlkjas;', event.currentIndex);
     // console.log('asfdlkjas;', event.previousIndex);
-    this.hideChecker(index);
+    // this.hideChecker(index);
   }
 
   placeChecker(event) {

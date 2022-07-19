@@ -11,9 +11,8 @@ import { AppComponent } from 'src/app/app.component';
 export class HeaderComponent implements OnInit {
   player1Active: boolean = false;
   player2Active: boolean = false;
-  @Input() endGame: any;
-  player1score: number = 0;
-  player2score: number = 0;
+  // player1score: number = 0;
+  // player2score: number = 0;
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
