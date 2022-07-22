@@ -25,16 +25,16 @@
 }
 
 .header-player-one {
-    background-color: blue;
+    background-color: var(--ff-primary-accent-color);
 
 }
 
 .header-player-two {
-    background-color: green;
+    background-color: var(--ff-secondary-accent-color);
 }
 
 .header-active {
-    background: linear-gradient(grey, red);
+    background: linear-gradient(var(--ff-thirdly-color), var(--ff-primary-color));
 }
 
 @media screen and (min-width: 768px) {

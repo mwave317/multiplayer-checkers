@@ -4,3 +4,13 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+:root {
+    --ff-primary-color: #e8272f;
+    --ff-secondary-color: #000000;
+    --ff-thirdly-color: #ebebeb;
+    --ff-fouthly-color: #ffffff;
+    --ff-primary-accent-color: blue;
+    --ff-secondary-accent-color: green;
+
+}

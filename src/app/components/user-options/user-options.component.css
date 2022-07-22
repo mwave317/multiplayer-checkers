@@ -6,15 +6,15 @@
 .button {
     font-family: 'Cabin';
     font-size: 20px;
-    background-color: blue;
-    color: white;
+    background-color: var(--ff-primary-accent-color);
+    color: var(--ff-fouthly-color);
     height: 40px;
     width: 120px;
     margin-right: 10px;
 }
 
 .disabled {
-    background-color: #EBEBEB;
+    background-color: var(--ff-thirdly-color);
     color: #A1A1A1;
 }
 

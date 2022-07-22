@@ -113,7 +113,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
 
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>, id) {
     console.log(event.container.data[event.currentIndex]['id']);
     if (event.previousContainer === event.container) {
       moveItemInArray(this.items, event.previousIndex, event.currentIndex);
@@ -135,7 +135,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
 
   getId(event, id) {
     // console.log('event.target.id', event.target.id);
-    // console.log('id', id);
+    console.log('id', id);
     // console.log('this.currentIndex', event.currentIndex);
   }
 
@@ -150,49 +150,20 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   }
 
   grabChecker(event, index) {
-    // console.log('Pointerdown Event: ', event);
-    // console.log('event value: ', event.target.value);
     this.xPointerGrabPosition = event.clientX;
     this.yPointerGrabPosition = event.clientY;
-    // console.log('This is the value of xPointerGrabPosition', this.xPointerGrabPosition);
-    // console.log('This is the value of yPointerdownPosition', this.yPointerGrabPosition);
-    // console.log(event.path[2].cdkDropListData.index);
-    // console.log('asfdlkjas;', event.currentIndex);
-    // console.log('asfdlkjas;', event.previousIndex);
-    // this.hideChecker(index);
+
   }
 
-  placeChecker(event) {
-    // console.log('is this the locationo it is dropped on', event.target.getBoundingClientRect());
-
-
-    // let rect = event.target.getBoundingClientRect();
-    // let x = event.clientX - rect.left;
-    // let y = event.clientY - rect.top;
-    // let id = event.path[0].attributes[1].value;
+  placeChecker(event, id) {
     this.xPointerReleasePosition = event.clientX;
     this.yPointerReleasePosition = event.clientY;
-    // this.checkerId = event.path[2].id;
-    // this.imgId = event.path[0].attributes[2].value;
-    // console.log('imgId ', this.imgId);
-    // console.log(event.path[2].cdkDropListData.index);
-    // console.log('This is the value of xPointerReleasePosition', this.xPointerReleasePosition);
-    // console.log('This is the value of yPointerReleasePosition', this.yPointerReleasePosition);
-    // console.log(event);
-    // if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) < 84) {
-    //   console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
-    //   console.log('Moved one space');
-
-    // }
-    // else if (this.xPointerGrabPosition < this.xPointerReleasePosition && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 84 && (this.xPointerReleasePosition - this.xPointerGrabPosition) > 157) {
-    //   console.log('You should see this calculation: ', this.xPointerReleasePosition - this.xPointerGrabPosition);
-    //   console.log('Moved two spaces');
-    // }
-
+    console.log('This is the ID', id);
   }
 
   moveCheckers3(event) {
     console.log('Event from the pointer capture', event);
+    console.log('This is the events pointer ID', event.ponterId);
   }
 
   onDragEnded(event: CdkDragEnd, id): void {
