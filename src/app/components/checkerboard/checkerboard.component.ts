@@ -25,6 +25,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   yPointerReleasePosition: number;
   fromSquare;
   toSquare;
+  removeChecker;
   items: Array<any> = [
     { squareId: '1-1', id: '1', class: 'square checkerboard-square-red', img: '' },
     { squareId: '1-2', id: '2', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
@@ -124,7 +125,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.hideWhichChecker();
     console.log('This is the fromSquare', this.fromSquare);
     console.log('This is the toSquare', this.toSquare);
-    console.log('event.container.data.img', event.container.data.img)
+    // console.log('event.container.data.img', event.container.data.img)
   }
 
   addPieces() {
@@ -193,46 +194,48 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
       toSquareRow -= 1;
       toSquareColumn += 1;
 
-      let deleteChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(deleteChecker);
+      this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
+      this.getIdOfCheckerToHide(this.removeChecker);
     }
 
     if (fromSquareRow < toSquareRow && fromSquareColumn < toSquareColumn) {
       toSquareRow -= 1;
       toSquareColumn -= 1;
 
-      let deleteChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(deleteChecker);
+      this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
+      this.getIdOfCheckerToHide(this.removeChecker);
     }
 
     if (fromSquareRow > toSquareRow && fromSquareColumn > toSquareColumn) {
       toSquareRow += 1;
       toSquareColumn += 1;
-      let deleteChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(deleteChecker);
+      this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
+      this.getIdOfCheckerToHide(this.removeChecker);
     }
 
     if (fromSquareRow > toSquareRow && fromSquareColumn < toSquareColumn) {
       toSquareRow += 1;
       toSquareColumn -= 1;
-      let deleteChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(deleteChecker);
+      this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
+      this.getIdOfCheckerToHide(this.removeChecker);
     }
   }
 
-  getIdOfCheckerToHide(squareId: string) {
-    console.log('squareId', squareId);
-    this.squares.forEach((data, index) => {
-      console.log('data', data);
+  getIdOfCheckerToHide(test1: string) {
+    let hideCheckerId;
+
+    this.items.forEach(x => {
+      if (x.squareId === test1) {
+        console.log('This should be the id of the checker to remove', x.id);
+        hideCheckerId = x.id - 1;
+      }
     });
-    let test = this.squares.toArray();
-    console.log('newArray', this.squares.toArray());
-    let hideCheckerId = '14';
+
     this.hideChecker(hideCheckerId);
   }
 
   hideChecker(id: string) {
     console.log('id', id);
-    this.hideDirectives.find((p) => p.id === id).shouldShow = 'none';
+    this.hideDirectives.find((p) => p.id === id.toString()).shouldShow = 'none';
   }
 }
