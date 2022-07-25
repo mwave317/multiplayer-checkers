@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.sharedService.player1Active.subscribe(data => this.player1Active = data);
     this.sharedService.player2Active.subscribe(data => this.player2Active = data);
-
+    console.log('this.player1Active', this.player1Active);
+    console.log('this.player2Active', this.player2Active);
   }
 }

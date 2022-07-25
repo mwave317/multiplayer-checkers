@@ -25,7 +25,8 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   yPointerReleasePosition: number;
   fromSquare;
   toSquare;
-  removeChecker;
+  removeChecker: string = '';
+  hideCheckerId;
   items: Array<any> = [
     { squareId: '1-1', id: '1', class: 'square checkerboard-square-red', img: '' },
     { squareId: '1-2', id: '2', class: 'square checkerboard-square-black', img: ' ../../assets/images/beige-checker-piece.svg' },
@@ -117,7 +118,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   drop(event: CdkDragDrop<any>) {
     this.fromSquare = event.previousContainer.data;
     this.toSquare = event.container.data;
-    if (event.container.data.img == '' && event.container.data.class == 'square checkerboard-square-black' && event.container.data.class != 'square checkerboard-square-red') {
+    if (event.container.data.class === 'square checkerboard-square-black' && event.container.data.class !== 'square checkerboard-square-red') {
       event.container.data.img = event.previousContainer.data.img;
       event.previousContainer.data.img = ''
     }
@@ -125,7 +126,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.hideWhichChecker();
     console.log('This is the fromSquare', this.fromSquare);
     console.log('This is the toSquare', this.toSquare);
-    // console.log('event.container.data.img', event.container.data.img)
+    this.dropChecker(this.toSquare);
   }
 
   addPieces() {
@@ -139,10 +140,23 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.yPointerGrabPosition = event.clientY;
   }
 
+  dropChecker(sqaure) {
+    console.log('Square', sqaure);
+    if (sqaure.img.includes('beige')) {
+
+      this.sharedService.player1Active.next(false);
+      this.sharedService.player2Active.next(true);
+    }
+    else {
+      this.sharedService.player1Active.next(true);
+      this.sharedService.player2Active.next(false);
+
+    }
+  }
+
   placeChecker(event) {
     this.xPointerReleasePosition = event.clientX;
     this.yPointerReleasePosition = event.clientY;
-    console.log('Squares', this.squares);
   }
 
   onDragEnded(event: CdkDragEnd): void {
@@ -221,17 +235,16 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getIdOfCheckerToHide(test1: string) {
-    let hideCheckerId;
-
-    this.items.forEach(x => {
-      if (x.squareId === test1) {
-        console.log('This should be the id of the checker to remove', x.id);
-        hideCheckerId = x.id - 1;
+  getIdOfCheckerToHide(idOfSquare: string) {
+    this.items.find(x => {
+      if (x.squareId === idOfSquare) {
+        // console.log('This should be the id of the checker to remove', x.id - 1);
+        this.hideCheckerId = x.id - 1;
+        this.hideChecker(this.hideCheckerId);
       }
     });
 
-    this.hideChecker(hideCheckerId);
+
   }
 
   hideChecker(id: string) {

@@ -12,16 +12,6 @@ export class SharedService {
 
   constructor() { }
 
-
-  // whichPlayerIsActive(player) {
-  //   if (player === 'player1') {
-  //     this.player1Active.next('player1');
-  //   }
-  //   else {
-  //     this.player2Active.next('player2');
-  //   }
-  // }
-
   sendStartGame(): Observable<boolean> {
     return this.startGame.asObservable();
   }
@@ -29,23 +19,6 @@ export class SharedService {
   sendEndGame(): Observable<boolean> {
     return this.endGame.asObservable();
   }
-
-  sendActivePlayer(): Observable<any> {
-    return
-    // if (this.player1Active) {
-    //   return this.player1Active.asObservable();
-    // } else {
-    //   return this.player2Active.asObservable();
-    // }
-  }
-
-  // hasGameEnded(): Observable<string> {
-  //   return this.endGameNow.asObservable();
-  // }
-
-  // sendGameEnded(status) {
-  //   this.endGameNow.next(status);
-  // }
 }
 
 
