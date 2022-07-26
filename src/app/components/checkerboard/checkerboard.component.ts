@@ -245,15 +245,8 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.items.find(x => {
       if (x.squareId === idOfSquare) {
         this.hideCheckerId = x.id - 1;
-        this.hideChecker(this.hideCheckerId);
+        this.items.find(x => x.squareId === this.removeChecker).img = ''
       }
     });
-  }
-
-  hideChecker(id: number) {
-    console.log('id', id);
-    if (this.xAxis > 120) {
-      this.hideDirectives.find((p) => p.id === id.toString()).shouldShow = 'none';
-    }
   }
 }
