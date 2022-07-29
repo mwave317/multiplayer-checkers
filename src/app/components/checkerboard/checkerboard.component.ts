@@ -36,7 +36,10 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.sharedService.sendStartGame().subscribe(data => this.addPieces());
-    this.sharedService.sendEndGame().subscribe(data => this.endGame = data);
+    this.sharedService.sendEndGame().subscribe(data => {
+      this.endGame = data;
+      this.clearCheckers();
+    });
     this.checkers = this.sharedService.sendCheckers();
   }
 
@@ -56,10 +59,11 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
       event.container.data.img = event.previousContainer.data.img;
       event.previousContainer.data.img = ''
       this.hideWhichChecker();
+      this.dropChecker(this.toSquare);
     }
     // console.log('This is the fromSquare', this.fromSquare);
     // console.log('This is the toSquare', this.toSquare);
-    this.dropChecker(this.toSquare);
+
   }
 
   addPieces() {
@@ -67,6 +71,14 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.disabled = true;
     this.sharedService.player1Active.next(true);
     this.checkers = this.sharedService.sendCheckers();
+  }
+
+  clearCheckers() {
+    if (this.endGame) {
+      for (let check of this.checkers) {
+        check.img = '';
+      }
+    }
   }
 
   grabChecker(event) {
@@ -91,10 +103,11 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   }
 
   kingMe() {
-    if (this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-2' && this.toSquare.img === '' || this.toSquare.squareId === '1-4' && this.toSquare.img === '' || this.toSquare.squareId === '1-6' && this.toSquare.img === '' || this.toSquare.squareId === '1-8' && this.toSquare.img === '') {
+    console.log('this.toSquare.img', this.toSquare.img)
+    if (this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-2' || this.toSquare.squareId === '1-4' || this.toSquare.squareId === '1-6' || this.toSquare.squareId === '1-8') {
       this.toSquare.img = '../../assets/images/gray-king-checker-piece.svg';
     }
-    if (this.toSquare.img.includes('red') && this.toSquare.squareId === '8-1' && this.toSquare.img === '' || this.toSquare.squareId === '8-3' && this.toSquare.img === '' || this.toSquare.squareId === '8-5' && this.toSquare.img === '' || this.toSquare.squareId === '8-7' && this.toSquare.img === '') {
+    if (this.toSquare.img.includes('red') && this.toSquare.squareId === '8-1' || this.toSquare.squareId === '8-3' || this.toSquare.squareId === '8-5' || this.toSquare.squareId === '8-7') {
       this.toSquare.img = '../../assets/images/red-king-checker-piece.svg';
     }
   }
@@ -102,6 +115,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   placeChecker(event) {
     this.xPointerReleasePosition = event.clientX;
     this.yPointerReleasePosition = event.clientY;
+    // console.log('afdafsd', this.toSquare.img);
   }
 
   // onDragEnded(event: CdkDragEnd): void {
