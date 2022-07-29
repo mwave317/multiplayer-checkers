@@ -1,22 +1,8 @@
-<!-- <div class="checkerboard-wrapper" cdkDropListGroup>
-    <div *ngFor="let checker of checkers;let i=index">
-        <div id={{i}} class={{checker.class}} cdkDropList [cdkDropListData]="checker" (cdkDropListDropped)="drop($event)">
-
-            <div *ngIf="newGame" class="images" (pointerdown)="grabChecker($event)" (pointerup)="placeChecker($event)" cdkDrag >
-                <div *cdkDragPlaceholder></div>
-                <img loading="lazy" *ngIf="checker.img" id={{i}} class="checkerImg" src={{checker.img}}
-                    (cdkDragEnded)="onDragEnded($event , i)" />
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="checkerboard-wrapper" cdkDropListGroup>
     <div #square *ngFor="let checker of checkers;let i=index">
         <div id={{checker.squareId}} class={{checker.class}} cdkDropList [cdkDropListData]="checker"
-            (cdkDropListDropped)="drop($event)" (pointerup)="placeChecker($event)">
-            <div *ngIf="newGame" class="images" (pointerdown)="grabChecker($event)" cdkDrag>
-                <!-- (cdkDragEnded)="onDragEnded($event)" -->
+            (cdkDropListDropped)="drop($event)">
+            <div *ngIf="newGame" class="images" cdkDrag>
                 <div *cdkDragPlaceholder></div>
                 <img appHide loading="lazy" *ngIf="checker.img" id={{i}} class="checkerImg" src={{checker.img}} />
             </div>
