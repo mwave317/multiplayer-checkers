@@ -1,7 +1,7 @@
 .checkerboard-wrapper {
     display: grid !important;
-    grid-template-rows: 30px 30px 30px 30px 30px 30px 30px 30px;
-    grid-template-columns: repeat(8, 30px);
+    grid-template-rows: repeat(8, 50px);
+    grid-template-columns: repeat(8, 50px);
     justify-content: center;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .square {
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
 }
 
 .checkerboard-square-black {
@@ -35,8 +35,9 @@
 }
 
 .checkerImg {
-    height: 26px;
-    margin: 0px
+    height: 65px;
+    margin: 2px 0px 0px 2px;
+    cursor: pointer;
 }
 
 .cdk-drag-animating {
@@ -67,6 +68,6 @@
 
     .checkerImg {
         height: 90px;
-        margin: 4px 0px 0px 2px;
+        margin: 7px 0px 0px 5px;
     }
 }
