@@ -160,11 +160,10 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   }
 
   kingMe() {
-
-    if (this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-2' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-4' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-6' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-8') {
+    if (this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-2' || this.toSquare.squareId === '1-4' || this.toSquare.squareId === '1-6' || this.toSquare.squareId === '1-8') {
       this.toSquare.img = '../../assets/images/gray-king-checker-piece.svg';
     }
-    if (this.toSquare.img.includes('red') && this.toSquare.squareId === '8-1' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-3' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-5' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-7') {
+    if (this.toSquare.img.includes('red') && this.toSquare.squareId === '8-1' || this.toSquare.squareId === '8-3' || this.toSquare.squareId === '8-5' || this.toSquare.squareId === '8-7') {
       this.toSquare.img = '../../assets/images/red-king-checker-piece.svg';
     }
   }
