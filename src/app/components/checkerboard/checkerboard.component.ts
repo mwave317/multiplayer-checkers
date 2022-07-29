@@ -24,19 +24,20 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   yPointerGrabPosition: number;
   xPointerReleasePosition: number;
   yPointerReleasePosition: number;
+  counter: number = 0;
   fromSquare;
   toSquare;
   xAxis;
   yAxis;
-  removeChecker: string = '';
+  removeChecker: string;
   hideCheckerId: number = 0;
-  items: Array<any> = [];
+  checkers: Array<any> = [];
   constructor(private sharedService: SharedService, private screenService: ScreenService) { }
 
   ngOnInit(): void {
     this.sharedService.sendStartGame().subscribe(data => this.addPieces());
     this.sharedService.sendEndGame().subscribe(data => this.endGame = data);
-    this.items = this.sharedService.sendItems();
+    this.checkers = this.sharedService.sendCheckers();
   }
 
   ngAfterViewInit(): void {
@@ -49,12 +50,15 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   drop(event: CdkDragDrop<any>) {
     this.fromSquare = event.previousContainer.data;
     this.toSquare = event.container.data;
-    if (event.container.data.class === 'square checkerboard-square-black' && event.container.data.class !== 'square checkerboard-square-red') {
+    if (event.container.data.class === 'square checkerboard-square-black' && event.container.data.class !== 'square checkerboard-square-red' && this.fromSquare.squareId != this.toSquare.squareId) {
+      console.log('ad', this.fromSquare.squareId);
+      console.log('asfas', this.toSquare.squareId);
       event.container.data.img = event.previousContainer.data.img;
       event.previousContainer.data.img = ''
-      console.log('event container', event.container.data);
+      // console.log('event container', event.container.data);
+      this.hideWhichChecker();
     }
-    this.hideWhichChecker();
+
 
 
     // console.log('This is the fromSquare', this.fromSquare);
@@ -66,7 +70,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.newGame = true;
     this.disabled = true;
     this.sharedService.player1Active.next(true);
-    this.items = this.sharedService.sendItems();
+    this.checkers = this.sharedService.sendCheckers();
   }
 
   grabChecker(event) {
@@ -156,39 +160,81 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
       toSquareRow -= 1;
       toSquareColumn += 1;
 
-      this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(this.removeChecker);
+      if (toSquareRow !== fromSquareRow || toSquareColumn !== fromSquareColumn && this.removeChecker) {
+        this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
+        console.log('hello')
+        console.log('this.fromSquareId', this.fromSquare.squareId)
+        console.log('this.toSquareId', this.toSquare.squareId)
+        console.log('this.removeChecker', this.removeChecker)
+        this.getIdOfCheckerToHide(this.removeChecker);
+        this.counter++;
+        console.log('Counter', this.counter);
+        console.log('hello');
+
+      }
     }
 
-    else if (fromSquareRow < toSquareRow && fromSquareColumn < toSquareColumn) {
+    if (fromSquareRow < toSquareRow && fromSquareColumn < toSquareColumn) {
       toSquareRow -= 1;
       toSquareColumn -= 1;
 
       this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(this.removeChecker);
+      console.log('hi')
+      console.log('this.fromSquareId', this.fromSquare.squareId)
+      console.log('this.toSquareId', this.toSquare.squareId)
+      console.log('this.removeChecker', this.removeChecker)
+      if (toSquareRow !== fromSquareRow || toSquareColumn !== fromSquareColumn && this.removeChecker) {
+        this.counter++;
+        console.log('this.removeChecker', this.removeChecker)
+        this.getIdOfCheckerToHide(this.removeChecker);
+        console.log('Counter', this.counter)
+      }
+
+
+
     }
 
-    else if (fromSquareRow > toSquareRow && fromSquareColumn > toSquareColumn) {
+    if (fromSquareRow > toSquareRow && fromSquareColumn > toSquareColumn) {
       toSquareRow += 1;
       toSquareColumn += 1;
       this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(this.removeChecker);
+      console.log('chicken')
+      console.log('this.fromSquareId', this.fromSquare.squareId)
+      console.log('this.toSquareId', this.toSquare.squareId)
+      console.log('this.removeChecker', this.removeChecker)
+      if (toSquareRow !== fromSquareRow || toSquareColumn !== fromSquareColumn && this.removeChecker) {
+
+        this.counter++;
+        console.log('Counter', this.counter)
+        this.getIdOfCheckerToHide(this.removeChecker);
+      }
+
+
     }
 
-    else if (fromSquareRow > toSquareRow && fromSquareColumn < toSquareColumn) {
+    if (fromSquareRow > toSquareRow && fromSquareColumn < toSquareColumn) {
       toSquareRow += 1;
       toSquareColumn -= 1;
       this.removeChecker = toSquareRow.toString() + '-' + toSquareColumn.toString();
-      this.getIdOfCheckerToHide(this.removeChecker);
+
+      if (toSquareRow != fromSquareRow || toSquareColumn != fromSquareColumn && this.removeChecker) {
+        console.log('escaped chicken')
+        console.log('this.removeChecker', this.removeChecker)
+        this.counter++;
+        console.log('Counter', this.counter)
+        this.getIdOfCheckerToHide(this.removeChecker);
+      }
+
     }
   }
 
   getIdOfCheckerToHide(idOfSquare: string) {
-    this.items.find(x => {
-      if (x.squareId === idOfSquare) {
-        this.hideCheckerId = x.id - 1;
-        this.items.find(x => x.squareId === this.removeChecker).img = ''
-      }
+    this.checkers.find(x => {
+      // if (x.squareId === idOfSquare) {
+      this.hideCheckerId = x.id - 1;
+      this.checkers.find(x => x.squareId === this.removeChecker).img = '';
+      // && this.removeChecker != this.fromSquare.squareId || this.removeChecker != this.toSquare.squareId
     });
+    // });
   }
 }

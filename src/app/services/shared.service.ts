@@ -22,8 +22,8 @@ export class SharedService {
     return this.endGame.asObservable();
   }
 
-  sendItems() {
-    const items = [
+  sendCheckers() {
+    const checkers = [
       { squareId: '1-1', id: '1', class: 'square checkerboard-square-red', img: '' },
       { squareId: '1-2', id: '2', class: 'square checkerboard-square-black', img: ' ../../assets/images/red-checker-piece.svg' },
       { squareId: '1-3', id: '3', class: 'square checkerboard-square-red', img: '' },
@@ -97,7 +97,7 @@ export class SharedService {
       { squareId: '8-8', id: '64', class: 'square checkerboard-square-red', img: '' },
     ];
 
-    return items;
+    return checkers;
   }
 }
 
