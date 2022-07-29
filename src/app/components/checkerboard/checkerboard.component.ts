@@ -128,8 +128,8 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
     this.hideWhichChecker();
 
 
-    console.log('This is the fromSquare', this.fromSquare);
-    console.log('This is the toSquare', this.toSquare);
+    // console.log('This is the fromSquare', this.fromSquare);
+    // console.log('This is the toSquare', this.toSquare);
     this.dropChecker(this.toSquare);
   }
 
@@ -146,6 +146,7 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
 
   dropChecker(sqaure) {
     console.log('Square', sqaure);
+
     if (sqaure.img.includes('gray')) {
 
       this.sharedService.player1Active.next(false);
@@ -155,16 +156,28 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
       this.sharedService.player1Active.next(true);
       this.sharedService.player2Active.next(false);
     }
+    this.kingMe();
+  }
+
+  kingMe() {
+
+    if (this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-2' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-4' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-6' || this.toSquare.img.includes('gray') && this.toSquare.squareId === '1-8') {
+      this.toSquare.img = '../../assets/images/gray-king-checker-piece.svg';
+    }
+    if (this.toSquare.img.includes('red') && this.toSquare.squareId === '8-1' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-3' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-5' || this.toSquare.img.includes('red') && this.toSquare.squareId === '8-7') {
+      this.toSquare.img = '../../assets/images/red-king-checker-piece.svg';
+    }
   }
 
   placeChecker(event) {
-    console.log('This is coming from the placeChecker', event);
+    // console.log('This is coming from the placeChecker', event);
     this.xPointerReleasePosition = event.clientX;
     this.yPointerReleasePosition = event.clientY;
   }
 
   onDragEnded(event: CdkDragEnd): void {
     console.log('This is coming from the onDragEnded');
+    // console.log('this.toSquareadfadsf', this.toSquare)
     // console.log(event.source.getFreeDragPosition());
     let xPointerReleaseMinusGrab = (this.xPointerReleasePosition - this.xPointerGrabPosition);
     let xPointerGrabMinusRelease = (this.xPointerGrabPosition - this.xPointerReleasePosition);
