@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { BreakpointState } from '@angular/cdk/layout';
-import { HideDirective } from '../../directives/hide.directive';
 
 import { SharedService } from '../../services/shared.service';
 import { ScreenService } from '../../services/screen.service';
@@ -18,7 +17,6 @@ export class CheckerboardComponent implements OnInit, AfterViewInit {
   disabled: boolean = false;
   newGame: boolean = false;
   endGame: boolean = false;
-  @ViewChildren(HideDirective) hideDirectives!: QueryList<HideDirective>;
   @ViewChildren('square') squares: QueryList<ElementRef>
   fromSquare;
   toSquare;
